@@ -1,0 +1,588 @@
+<!doctype html5>
+<html lang="ko">
+<head>
+
+<meta charset="utf-8">
+<link rel="stylesheet" media="screen and (max-width:768px)" href="Untitled-1.css">
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="js/jquery.alton.js"></script>	
+<script src="js/jquery.scrollTo.min.js"></script>
+<script>
+    $(function(){
+        var i=1;
+        var imgList = [ "img_6516.JPG","3.jpeg","7.JPG" ];
+        var currentScroll;
+        var isScrollTop = true;
+        var isScrollEventKeep = false;
+        var scrollMenuTopOnce = false;
+        var isSectionEventTrue2 = false;
+        var initialScrollVarForEvent;
+
+
+
+        
+
+        // $(document).alton({
+        // fullSlideContainer: 'full', // Tell Alton the full height container
+        // singleSlideClass: 'slide', // Tell Alton the full height slide class
+        // useSlideNumbers: false, // Set to false if you don't want to use pagination
+        // slideNumbersBorderColor: '#fff', // Set the outside color of the pagination items
+        // slideNumbersColor: 'featuredScroll', // Set the inner color of the pagination items
+        // bodyContainer: 'pageWrapper', // Tell Alton the body class
+        // });
+        $(".ghost").on('click', function(event) {
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+        // Prevent default anchor click behavior
+        event.preventDefault();
+
+        // Store hash
+        var hash = this.hash;
+
+        // Using jQuery's animate() method to add smooth page scroll
+        // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+        $('html, body').animate({
+            scrollTop: $("#section2").offset().top
+        }, 1000, function(){
+
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            window.location.hash = hash;
+        });
+        } // End if
+        });
+        
+
+        $( window ).scroll(function(e) {
+        initialScrollVarForEvent = $(this).scrollTop();
+        if (initialScrollVarForEvent >=1088 && initialScrollVarForEvent <2168){
+            sectionAnimate1();
+         }else if(initialScrollVarForEvent >=2168 && initialScrollVarForEvent<3248){
+             sectionAnimate2()
+         }else if (initialScrollVarForEvent >=3248){
+             sectionAnimate3();
+         }
+
+       //first = 8, second = 1088, third = 2174, fourth = 3976
+       console.log("current scroll : "+$(this).scrollTop());
+       //moving firstsection (condition 1. second to first)
+       if($(this).scrollTop()< $(".seconddiv").offset().top && isScrollEventKeep ==false && $(this).scrollTop()>$(".firstdiv").offset().top){
+        if (isScrollEventKeep ==false){console.log(isScrollEventKeep);}
+           if($(this).scrollTop()<currentScroll){
+            console.log("second to first");
+            isScrollEventKeep = true;
+            $('html, body').stop().animate({
+            scrollTop: $(".firstdiv").offset().top
+            }, 800);
+            setTimeout(() => {
+                $('html, body').stop().animate({}, 1);
+                isScrollEventKeep =false;
+            }, 1100);
+        }
+       }
+       if($(this).scrollTop()<$(".firstdiv").offset().top){
+           if (isScrollEventKeep ==false){console.log(isScrollEventKeep);}
+           if($(this).scrollTop() < currentScroll && isScrollEventKeep ==false){
+               console.log("first to first");
+               isScrollEventKeep =true;
+               $('html,body').stop().animate({
+                   scrollTop:0
+               },1);
+               setTimeout(() => {
+                   isScrollEventKeep =false;
+               }, 1100);
+           }
+       }
+
+       //moving to secondsection (condition 1. first to second 2. third to second)
+       console.log($(this).scrollTop()+"(currentScroll)"+$(".firstdiv").offset().top+"(firstdivdivScroll)")
+       if($(this).scrollTop()<$(".seconddiv").offset().top && isScrollEventKeep==false){
+        if (isScrollEventKeep ==false){console.log(isScrollEventKeep);}
+           console.log("first to second event");
+           if ($(this).scrollTop()>currentScroll){
+            isScrollEventKeep = true;
+            $('html, body').animate({
+            scrollTop: $(".seconddiv").offset().top
+            }, 800);
+            setTimeout(() => {
+                $('html, body').stop().animate({}, 1);
+                isScrollEventKeep =false;
+            }, 1100);
+            setTimeout(() => {
+                sectionAnimate1();  
+            }, 510);
+             
+           }
+       }
+       //third to second
+       if($(this).scrollTop()<$(".thirddiv").offset().top && isScrollEventKeep==false && $(this).scrollTop()>$(".seconddiv").offset().top){
+        if (isScrollEventKeep ==false){console.log(isScrollEventKeep);}
+           console.log("third to second event");
+           if ($(this).scrollTop()<currentScroll){
+            isScrollEventKeep = true;
+            $('html, body').animate({
+            scrollTop: $(".seconddiv").offset().top
+            }, 800);
+            setTimeout(() => {
+                $('html, body').stop().animate({}, 1);
+                isScrollEventKeep =false;
+            }, 1100);
+            setTimeout(() => {
+                sectionAnimate1();  
+            }, 510);
+             
+           }
+       }
+
+       //moving to thirdsection (condtion 1. second to third 2. fourth to third)
+       if($(this).scrollTop()<$(".thirddiv").offset().top && isScrollEventKeep==false){
+        if (isScrollEventKeep ==false){console.log(isScrollEventKeep);}
+           console.log("second to third event");
+           if ($(this).scrollTop()>currentScroll){
+            isScrollEventKeep = true;
+            $('html, body').animate({
+            scrollTop: $(".thirddiv").offset().top
+            }, 800);
+            setTimeout(() => {
+                $('html, body').stop().animate({}, 1);
+                isScrollEventKeep =false;
+            }, 1100);
+            setTimeout(() => {
+                sectionAnimate2(); 
+            }, 510);
+             
+           }
+       }
+        //fourth to third
+        if($(this).scrollTop()<$(".fourthdiv").offset().top && isScrollEventKeep==false && $(this).scrollTop()>$(".thirddiv").offset().top){
+        if (isScrollEventKeep ==false){console.log(isScrollEventKeep);}
+           console.log("third to second event");
+           if ($(this).scrollTop()<currentScroll){
+            isScrollEventKeep = true;
+            $('html, body').animate({
+            scrollTop: $(".thirddiv").offset().top
+            }, 800);
+            setTimeout(() => {
+                $('html, body').stop().animate({}, 1);
+                isScrollEventKeep =false;
+            }, 1100);
+            setTimeout(() => {
+                sectionAnimate2();  
+            }, 510);
+             
+           }
+       }
+
+
+
+        //moving to fourthsection (condtion 1. third to fourth )
+        if($(this).scrollTop()<$(".fourthdiv").offset().top && isScrollEventKeep==false){
+        if (isScrollEventKeep ==false){console.log(isScrollEventKeep);}
+           console.log("third to fourth event");
+           if ($(this).scrollTop()>currentScroll){
+            isScrollEventKeep = true;
+            $('html, body').animate({
+            scrollTop: $(".fourthdiv").offset().top
+            }, 800);
+            setTimeout(() => {
+                $('html, body').stop().animate({}, 1);
+                isScrollEventKeep =false;
+            }, 1100);
+            setTimeout(() => {
+                sectionAnimate3();  
+            }, 510);
+             
+           }
+       }
+
+        //비교를 위해 비교를 한 다음에 값이 담기세요.
+        currentScroll = $(this).scrollTop();
+
+        //menu scrolling changing
+        if(currentScroll>0 && isScrollTop==true){
+           console.log("메뉴 확장 event 발생");
+           //.menucontainerafterscroll{top:-40px;  width: 100%; left:-1px;} 
+           //.menucontainer{height: 15%; width: 94%; height: 10%;margin: 40px auto; text-align: center; background-color: white; margin-bottom: 0; position: fixed; left:40px; z-index: 5;}
+           $(".menucontainer").animate({
+            top: "-=55px",
+            width: "100%",
+            left:"-1px",  
+        }, 300 );
+        $(".menucontainer").css("box-shadow"," 0.01px 0px 1px 1px #ccc");
+        $(".menucontainertwo").css("box-shadow","none");
+        $(".menucontainertwo").animate({
+            top: "-=55px",
+            width: "100%",
+            left:"-1px",
+            height:"250px"     
+        }, 0 );
+        isScrollTop=false;
+       }  // if end
+
+        if($(this).scrollTop()==0  && scrollMenuTopOnce == false){
+            console.log("메뉴 축소 event 발생");
+            $(".menucontainer").animate({
+            top: "+=55px",
+            width: "94%",
+            left:"+43px"     
+        }, 300 );
+        $(".menucontainertwo").animate({
+            top: "+=55px",
+            width: "94%",
+            left:"+43px",   
+            height:"200px"     
+        }, 0 );
+        $(".menucontainer").css("box-shadow","none");
+            scrollMenuTopOnce = true;
+            isScrollTop = true;
+            setTimeout(() => {
+                scrollMenuTopOnce =false;
+            }, 1000);
+
+        } //if end
+
+        });
+        
+        // var cssObj = {'max-width' : '500px'};
+        // $(".cropping").animate(cssObj,'slow');
+        function sectionAnimate1(){
+            var height = $(".cropping img").css("height");
+            $(".seconddiv .cropping").animate({
+                width:"260px"
+            },1000);
+            setTimeout(() => {
+                $(".seconddiv .words").fadeIn('slow');
+                
+            }, 400);
+        }
+        function sectionAnimate2(){
+            // $(".thirddiv .cropping2").animate({
+            //  left:"+=24.15%"
+            // },1100);
+            if (isSectionEventTrue2 == false){
+            $(".thirddiv .friesimg").animate({
+             right:"-=60%",
+             opacity:"0.9"
+            },1000);
+            setTimeout(() => {
+                $(".thirddiv .words").fadeIn('slow');
+                
+            }, 400);
+        }
+            isSectionEventTrue2 = true;
+        }
+       
+        function sectionAnimate3(){
+            setTimeout(() => {
+                $(".fourthdiv img:nth-child(2)").css("visibility","visible");
+            }, 300);
+            setTimeout(() => {
+                $(".fourthdiv img:nth-child(3)").css("visibility","visible");
+            }, 600);
+            setTimeout(() => {
+                $(".fourthdiv img:nth-child(4)").css("visibility","visible");
+            }, 900);
+            setTimeout(() => {
+                $(".fourthdiv .words").fadeIn("slow");
+            }, 500); 
+        }
+            
+        function  linefunc1(){
+            i=0;
+            $("#body").css("background","url("+imgList[i]+")  no-repeat top center fixed ").stop(true,true).hide().fadeIn("fast");
+            $(".secondline").css("display","none");
+            $(".secondline").css("visibility","hidden");
+            $(".secondline").css("height","1px");
+            $(".thirdline").css("display","none");
+            $(".thirdline").css("visibility","hidden");
+            $(".thirdline").css("height","1px");
+            if ($( ".firstline" ).is(":hidden")){
+                $( ".firstline" ).css("display","block");
+                $( ".firstline" ).css("visibility","visible");
+                $( ".firstline" ).animate({
+                    height: "+=50",
+                    
+                }, 500, function() {
+                    // Animation complete.
+                });
+            }
+        }
+        function  linefunc2(){
+            i=1;
+            $("#body").css("background","url("+imgList[i]+")  no-repeat top center fixed ").stop(true,true).hide().fadeIn("fast");
+            $(".firstline").css("display","none");
+            $(".firstline").css("visibility","hidden");
+            $(".firstline").css("height","1px");
+            $(".thirdline").css("display","none");
+            $(".thirdline").css("visibility","hidden");
+            $(".thirdline").css("height","1px");
+            
+            if ($( ".secondline" ).is(":hidden")){
+                $( ".secondline" ).css("display","block");
+                $( ".secondline" ).css("visibility","visible");
+                $( ".secondline" ).animate({
+                    height: "+=50",
+                    
+                }, 500, function() {
+                    // Animation complete.
+                });
+            }
+        }
+        function  linefunc3(){
+            i=2;
+            $("#body").css("background","url("+imgList[i]+")  no-repeat top center fixed ").stop(true,true).hide().fadeIn("fast");
+            $(".firstline").css("display","none");
+            $(".firstline").css("visibility","hidden");
+            $(".firstline").css("height","1px");
+            $(".secondline").css("display","none");
+            $(".secondline").css("visibility","hidden");
+            $(".secondline").css("height","1px");
+            if ($( ".thirdline" ).is(":hidden")){
+                $( ".thirdline" ).css("display","block");
+                $( ".thirdline" ).css("visibility","visible");
+                $( ".thirdline" ).animate({
+                    height: "+=50",
+                    
+                }, 500, function() {
+                    // Animation complete.
+                });
+            }
+        }
+
+        $(".menuul li").hover(function(e){
+            $(this).css("color","rgb(208,17,43)");
+            $(".secondmenuli").slideDown("slow");
+        },function(){
+            $(this).css("color","black"); 
+       });
+      
+        $(".menucontainer").mouseleave(function(){
+            $(".secondmenuli").slideUp("slow");   
+        });
+        
+        setTimeout(function() {
+					 setInterval(function() {
+                        $("#body").css("background","url("+imgList[i]+")  no-repeat top center fixed ").stop(true,true).hide().fadeIn("fast");
+                        if(i==0){
+                            linefunc1();
+                        }
+                        else if(i==1){
+                            linefunc2();
+                        }
+                        else if(i==2){
+                            linefunc3();
+                        }
+                        i = i+1;
+                        
+					 if (i ==3){
+						 i=0;
+					 }
+					}, 10000);  })
+        // document.getElementById("demo").onmouseout = function() {mouseOut()};
+        // function mouseOut() {
+        //     $(".menucontainertwo").slideUp("fast");
+        //     $(".secondmenuli").slideUp("fast");
+        // }
+        $(".ghost").hover(function(){
+            $(this).css("background-color","rgba(25, 25, 25, 0.4)")
+        },function(){
+            $(this).css("background-color","rgba(25, 25, 25, 0.1)")
+        });
+
+        
+        $( ".01" ).click(function(){
+            linefunc1();
+        });
+        $( ".02" ).click(function() {
+           linefunc2();
+        });
+        $( ".03" ).click(function() {
+            linefunc3();
+        });
+        linefunc1(); 
+});
+
+</script>
+<style>
+        body{ z-index: -2;}
+        #body{position: absolute; z-index: -1; background: url('img_6516.JPG') no-repeat top center fixed ; width: 100.1%;top:0px; height: 1080px; left:-3px;}
+        /* img_6516.JPG */
+        .container {width: 70%; height: 70%;margin: 40px auto; text-align: center;}
+        .menucontainer{height: 15%; width: 94%; height: 10%;margin: 40px auto; text-align: center; background-color: white; margin-bottom: 0; position: fixed; left:40px; z-index: 5;}
+        nav li {color: black; display:inline;}
+        .mainlogo{width:10%; float: left; position: relative; left:20px; top:5px;}
+        .languageselectul{float: right; position: relative; left:-30px; top: -50px; font-weight: bold; font-size: 0.8vw; cursor: pointer; top:-15px;}
+        .firstdiv h1{text-align: center;position: relative;top:120px; font-size: 10vh; color: white; margin: 0; top:300px;margin-left:10%;}
+        .firstdiv h4{text-align: center;position: relative;top:90px;color: white; font-size:4vh;top:300px;}
+       .menuul>ul{float: left; cursor: pointer; z-index: 2;}
+       .secondmenuli{display: none; list-style: none; cursor: pointer; }
+       .menuul>ul>li{float: left; font-size: 0.7vw; z-index: 4;}
+       .menuul>ul{position: relative;left:12.5vw;top:10px; }
+       .menufirstli{font-size:0.8vw; font-weight: bold; margin-bottom: 2.5vw;}
+       .menucontainertwo{height: 21%; background-color: rgba(255, 255, 255, 0.8); margin-top: 0; position: fixed; display:none;z-index: 1; left:40px;top:100px;}
+       .typographydiv{position: absolute; width: 70%; height: 70%;margin: 40px auto; text-align: center; margin-left:15%; top:4vw; }
+       .ghost{width: 80px;height: 80px; font-size: 25px; font-weight: bold; background-color:rgba(25, 25, 25, 0.1); border: 0px solid white; color: white; position: relative;left:47vw;top:18vw; cursor: pointer;}
+       .seconddiv{width: 100.1%; height:1080px; border: 0px solid lightseagreen;}
+       .numberbox{  float:right; height:400px; width:100px; position: relative;top:400px;text-align: right;z-index: 2;left:-100px;}
+       .numberbox>p{font-size: 1.3vw; font-weight: bolder; color: white; margin: 0; z-index: 244; cursor: pointer; display: block;}
+       .numberbox>.line{width: 1px; background-color: white; height: 4px; left: -15px; position: relative;left:4.5vw; visibility: hidden; display: none; }
+       .thirddiv {width: 100.1%; height:1080px; border: 0px solid rgb(178, 32, 32);}
+       .fourthdiv {width: 100.1%; height:1080px; border: 0px solid rgb(166, 32, 178); }
+       .hamburgerpattern{position: absolute; left:25vw; top:1250px;}
+       .friespattern{position: absolute; left:60vw; top:2250px;}
+       .cropping{left:30vw; top:1400px; position: absolute;  overflow: hidden;}
+       .cropping2{left:20vw; top:2400px; position: absolute;  overflow: hidden;}
+       
+       .hamburgerimg{max-width: initial;}
+       .friesimg{max-width: initial; position:relative; }
+       .seconddiv .words {position: absolute; left:57vw; top:1450px; display:none;}
+       .words h1{font-size: 2.5vw; color: brown;}
+       .words hr{border: 1px solid brown; left:-8vw; position: absolute; width: 22vw;}
+       .words input{background-color: white; border: 1px solid brown; font-size: 1.2vw; color: brown; position: relative; top:30px;left:10px; height: 50px; cursor: pointer;}
+       .thirddiv .words {position: absolute; left:30vw;top:2500px; display:none;}
+       .fourthdiv .words{position: absolute; left:45vw;top:3500px; display: none;}
+       .colaback3{margin-left:20%;}
+       .fourthdiv img{visibility: hidden; margin-top:10%;}
+       .fourthdiv img:nth-child(1){visibility: visible; }
+       
+       
+       
+    </style>
+</head>
+
+<body class="pageWrapper">
+<section class="full">
+<div id = "body"></div>
+<div class="slide firstdiv" style="height:1080px;">
+<div class="menucontainer "> 
+    <nav>
+        <img src ="Wendys-Logo.png" class ="mainlogo">
+        <ul class ="menuul">
+            <ul>
+                <li class ="menufirstli" style="font-size: 1.2vw;">About us</li>
+                <br>
+               
+                <li class="secondmenuli"><a href="#section2">회사 연혁</a></li>
+                <br>
+                <li class="secondmenuli">사업장 안내</li>
+                <br><br><br><br>
+                <li class="secondmenuli">관계사</li>
+                <br><br><br><br><br>
+                
+            </ul>
+            <ul>
+                <li class ="menufirstli" style="font-size: 1.2vw;">Core competency</li>
+                <br>
+                <li class="secondmenuli">PlatformTechnology</li>
+                <br><br><br><br>
+             
+                <li class="secondmenuli">Production</li>
+                <br>
+                <li class="secondmenuli">Manufacturing Technology</li>
+                <br>
+                <br>
+                <li class="secondmenuli">Achievements</li>
+            </ul>
+            <ul>
+                <li class ="menufirstli" style="font-size: 1.2vw;">Our business</li>
+                <br>
+                <li class="secondmenuli">제품정보</li>
+                <br>
+                <br>
+                <br>
+                <br>
+                <li class="secondmenuli">자체생산제품</li>
+                <br>
+                <li class="secondmenuli">도입·유통제품</li>
+                <br>
+                <br>
+                <li class="secondmenuli">제품소식</li>
+                <br>
+                <li class="secondmenuli">CDMO</li>
+            </ul>
+            <ul>
+                <li class ="menufirstli" style="font-size: 1.2vw;">PR Center</li>
+                <br>
+                <li class="secondmenuli">보도자료</li>
+                <br><br><br><br><br><br><br><br><br><br>
+                
+            </ul>
+            <ul>
+                <li class ="menufirstli" style="font-size: 1.2vw;">CS center</li>
+                <br>
+                <li class="secondmenuli">고객센터</li>
+                <br>
+                <li class="secondmenuli">윤리경영/제보</li>
+                <br><br><br><br><br><br><br><br><br><br><br>
+            </ul>
+            <ul>
+                <li class ="menufirstli" style="font-size: 1.2vw;">Careers</li>
+                <br>
+                <li class="secondmenuli">인재상</li>
+                <br>
+                <br>
+                <li class="secondmenuli">채용정보</li>
+                <br><br><br><br><br><br><br><br>
+
+            </ul>
+        </ul>
+        <ul class ="languageselectul">
+            <li>KOR</li>
+            <li>|</li>
+            <li>EN</li>
+        </ul>
+    </nav>
+</div>
+<div class="menucontainer menucontainertwo secondmenuli"></div>
+
+<div class="numberbox">
+    <div class="line" style="visibility: hidden;"></div>
+    <p class="01">01</p>
+    <div class="line firstline"></div>
+    <p class="02">02</p>
+    <div class="line secondline"></div>
+    <p class="03">03</p>
+    <div class="line thirdline"></div>
+
+</div>
+<h1 >We improve <br>human health</h1>
+<h4>from preventation to cure.</h4>
+<input type="button" class="ghost" value="↓" alt="어쩌고" >
+</div>
+<div class ="seconddiv slide " id="section2">
+    <img src="hamburgerbackground.JPG" class ="hamburgerpattern">
+    <div class="cropping">
+    <img src="7c254808ad08a22ce24e03ee5a51aff8.png" class ="hamburgerimg">
+    </div>
+    <div class ="words">
+    <h1> Hamburger<br>Technology</h1>
+    <hr>
+    <input type="button" class="MoreButton" value="More+">
+    </div>
+</div>
+<div class ="thirddiv slide">
+    <img src="porcao-de-batata-frita-fria-gordurenta-comida.JPG" class ="friespattern">
+    <div class="cropping2">
+    <img src="22292882544_8540282dd3_b.JPG" class ="friesimg">
+    </div>
+    <div class ="words">
+    <h1> Fries<br>Science</h1>
+    <hr>
+    <input type="button" class="MoreButton" value="More+">
+    </div>
+</div>
+<div class ="fourthdiv">
+    <img src="20140409145235322200.png" class ="colaback">
+    <img src="20140409145235322200.png" class ="colaback">
+    <img src="20140409145235322200.png" class ="colaback colaback3">
+    <img src="20140409145235322200.png" class ="colaback">  
+    <div class ="words">
+    <h1> Cola<br>Power</h1>
+    <hr>
+    <input type="button" class="MoreButton" value="More+">
+    </div>
+</div>
+</section>
+</body>
+
+</html>
